@@ -51,7 +51,7 @@ export const paymentVarification =async (req,res)=>{
     });
 
     res.redirect(
-      `http://localhost:5173/success?reference=${razorpay_payment_id}`
+      `https://kalimai-evidpx0ci-sunil-das-projects.vercel.app/success?reference=${razorpay_payment_id}`
     );
   } else {
     res.status(400).json({
