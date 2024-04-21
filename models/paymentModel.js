@@ -2,18 +2,6 @@
 import mongoose from "mongoose";
 
 const paymentSchema = new mongoose.Schema({
-  name:{
-    type:String,
-    required:true
-  },
-  email:{
-    type:String,
-     required:true,
-  },
-  contact:{
-    type:Number,
-     required:[true,"it is a required field"]
-  },
   razorpay_order_id: {
     type: String,
     required: true,

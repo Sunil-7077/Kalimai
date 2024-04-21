@@ -20,14 +20,9 @@ export const checkout =async (req,res)=>{
 }
 
 export const paymentVarification =async (req,res)=>{
-   const data = req.body;
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature,prefill } =
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
-    console.log(data);
-   const name=prefill.name;
-    const email= prefill.email;
-    const contact= prefill.contact;
-
+   
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
   const expectedSignature = crypto
@@ -54,9 +49,6 @@ export const paymentVarification =async (req,res)=>{
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      name,
-      email,
-      contact
     });
 
     res.redirect(
