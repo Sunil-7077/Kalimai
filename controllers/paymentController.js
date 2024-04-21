@@ -1,6 +1,7 @@
 import { instance } from "../server.js"
 import crypto from "crypto";
 import { Payment } from "../models/paymentModel.js";
+import { SendEmail } from "../utils/SendMail.js";
 
 
 export const checkout =async (req,res)=>{
@@ -10,7 +11,7 @@ export const checkout =async (req,res)=>{
         
     };
     const order = await instance.orders.create(options)
-  
+     console.log(options)
     res.status(200).json({
         success:true,
         order,
@@ -19,8 +20,13 @@ export const checkout =async (req,res)=>{
 }
 
 export const paymentVarification =async (req,res)=>{
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+   const data = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature,prefill } =
     req.body;
+    console.log(data);
+   const name=prefill.name;
+    const email= prefill.email;
+    const contact= prefill.contact;
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
@@ -48,11 +54,17 @@ export const paymentVarification =async (req,res)=>{
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
+      name,
+      email,
+      contact
     });
 
     res.redirect(
       `https://kalimai.netlify.app/sucess?reference=${razorpay_payment_id}`
+
     );
+    // SendEmail("subhe@gmail.com",'12343254');
+    console.log("payment success");
   } else {
     res.status(400).json({
       success: false,
