@@ -11,11 +11,13 @@ export const checkout =async (req,res)=>{
         
     };
     const order = await instance.orders.create(options)
-     console.log(options)
+    
     res.status(200).json({
         success:true,
         order,
+        
     })
+   
     
 }
 
